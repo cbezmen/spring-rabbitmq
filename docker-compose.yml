@@ -1,0 +1,25 @@
+version: '3.3'
+
+services:
+    rabbitmq:
+      image: rabbitmq:3-management
+      restart: always
+      ports:
+        - "5672:5672"
+        - "15672:15672"
+
+    rabbit-receiver:
+      build:
+        context: rabbit-receiver
+        dockerfile: docker/Dockerfile
+      restart: always
+      ports:
+        - "8181:8181"
+
+    rabbit-sender:
+      build:
+        context: rabbit-sender
+        dockerfile: docker/Dockerfile
+      restart: always
+      ports:
+        - "8180:8180"

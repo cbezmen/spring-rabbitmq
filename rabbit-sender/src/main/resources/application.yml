@@ -1,0 +1,10 @@
+server:
+  port: 8180
+
+
+---
+spring:
+  profiles: docker 
+  rabbitmq:
+    host: rabbitmq
+    port: 5672
