@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbit-sender
+  labels:
+    app: rabbit-sender
+spec:
+  type: NodePort
+  ports:
+    - port: 8180
+  selector:
+    app: rabbit-sender
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: rabbit-sender
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: rabbit-sender
+    spec:
+      containers:
+      - name: rabbit-sender
+        image: rabbit-sender:v1
+        ports:
+        - containerPort: 8180

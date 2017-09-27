@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbit-receiver
+  labels:
+    app: rabbit-receiver
+spec:
+  type: NodePort
+  ports:
+    - port: 8181
+  selector:
+    app: rabbit-receiver
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: rabbit-receiver
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: rabbit-receiver
+    spec:
+      containers:
+      - name: rabbit-receiver
+        image: rabbit-receiver:v1
+        ports:
+        - containerPort: 8181
