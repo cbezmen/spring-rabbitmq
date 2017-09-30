@@ -22,7 +22,6 @@ public class Application {
 
 	public static final String RABBIT_QUEUE = "rabbit.queue";
 	public static final String ANOTHER_RABBIT_QUEUE = "another.rabbit.queue";
-	public static final String RABBIT_ERROR_QUEUE = RABBIT_QUEUE + ".error";
 
 	public static void main(final String[] args) throws Exception {
 		SpringApplication.run(Application.class, args);
@@ -31,11 +30,6 @@ public class Application {
 	@Bean
 	public Queue createQueue() {
 		return new Queue(RABBIT_QUEUE);
-	}
-
-	@Bean
-	public Queue createErrorQueue() {
-		return new Queue(RABBIT_ERROR_QUEUE);
 	}
 
 	@Bean
