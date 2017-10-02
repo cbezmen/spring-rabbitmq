@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import com.rabbit.sender.Application;
+import com.rabbit.sender.configurations.RabbitConfiguration;
 
 /**
  * @author cbezmen
@@ -39,8 +39,8 @@ public class SenderServiceImpl {
 		builder.append(Integer.toString(++count));
 		final String message = builder.toString();
 
-		rabbitTemplate.convertAndSend(Application.RABBIT_QUEUE, message);
-		LOG.info(String.format("%s queue with message : %s", Application.RABBIT_QUEUE, message));
+		rabbitTemplate.convertAndSend(RabbitConfiguration.RABBIT_QUEUE, message);
+		LOG.info(String.format("%s queue with message : %s", RabbitConfiguration.RABBIT_QUEUE, message));
 	}
 
 }

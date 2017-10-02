@@ -5,12 +5,11 @@ package com.rabbit.receiver.services.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StopWatch;
 
-import com.rabbit.receiver.Application;
+import com.rabbit.receiver.configurations.RabbitConfiguration;
 import com.rabbit.receiver.models.Car;
 
 /**
@@ -24,7 +23,7 @@ public class ReceiverServiceImpl {
 
 	int i = 0;
 
-	@RabbitListener(queues = Application.RABBIT_QUEUE)
+	@RabbitListener(queues = RabbitConfiguration.RABBIT_QUEUE)
 	public void receiveString(final String data) {
 		final StopWatch watch = new StopWatch();
 		watch.start();
@@ -40,10 +39,18 @@ public class ReceiverServiceImpl {
 		LOG.info("Done in " + watch.getTotalTimeSeconds() + "s");
 	}
 
-	@RabbitHandler
-	@RabbitListener(queues = Application.ANOTHER_RABBIT_QUEUE)
+	@RabbitListener(queues = RabbitConfiguration.ANOTHER_RABBIT_QUEUE)
 	public void receiveObject(final Car car) {
-		LOG.info(String.format("Car with name %s id: %d", car.getName(), car.getId()));
+		printLog("Another", car);
+	}
+
+	@RabbitListener(queues = RabbitConfiguration.THIRD_RABBIT_QUEUE)
+	public void receiveThirdQueueObject(final Car car) {
+		printLog("Third", car);
+	}
+
+	private void printLog(final String queueName, final Car car) {
+		LOG.info(String.format("%s Queue, car with name %s id: %d", queueName, car.getName(), car.getId()));
 	}
 
 	private void doWork(final String in) {

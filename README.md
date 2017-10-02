@@ -55,7 +55,7 @@ This command stop kubernetes `pods`, `services` and `deployments`.
   * [Spring Boot](https://projects.spring.io/spring-boot/)
 * [RabbitMQ](https://www.rabbitmq.com/)
 * [LOG](https://www.slf4j.org/manual.html)
-* [Grade](https://gradle.org/)
+* [Gradle](https://gradle.org/)
 * [Docker](https://www.docker.com/)
   * [Docker Tutorial](https://docs.docker.com/get-started/#setup)
   * [Docker File](https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/#label)

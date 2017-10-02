@@ -15,7 +15,6 @@ import org.springframework.aop.ThrowsAdvice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.rabbit.receiver.Application;
 import com.rabbit.receiver.enums.QueueSuffixEnumeration;
 import com.rabbit.receiver.services.impl.ReceiverServiceImpl;
 
@@ -33,22 +32,22 @@ public class ErrorHandler implements ThrowsAdvice {
 	private static final Logger LOG = LoggerFactory.getLogger(ReceiverServiceImpl.class);
 
 	@AfterThrowing(pointcut = "execution(* com.rabbit.receiver.services.impl.ReceiverServiceImpl.receiveString(..))", throwing = "ex")
-	public void can(final JoinPoint joinPoint, final Exception ex) {
+	public void sendErrorQueue(final JoinPoint joinPoint, final Exception ex) {
 
 		LOG.error(ex.getMessage());
 		LOG.error("Sending to error queue");
 		LOG.info("Sending args " + joinPoint.getArgs()[0]);
-		MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
-		RabbitListener rabbitListener = methodSignature.getMethod().getAnnotation(RabbitListener.class);
-		for (String currentQueue : rabbitListener.queues()) {
-			String errorQueue = createErrorQueueName(currentQueue);
+		final MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+		final RabbitListener rabbitListener = methodSignature.getMethod().getAnnotation(RabbitListener.class);
+		for (final String currentQueue : rabbitListener.queues()) {
+			final String errorQueue = createErrorQueueName(currentQueue);
 			template.convertAndSend(errorQueue, joinPoint.getArgs()[0]);
 			LOG.info("Moved to queue: " + currentQueue);
-		}	
-	
+		}
+
 	}
-	
-	public String createErrorQueueName(String queueName){
+
+	public String createErrorQueueName(final String queueName) {
 		return queueName.concat(QueueSuffixEnumeration.ERROR_SUFFIX.getSuffix());
 	}
 }
