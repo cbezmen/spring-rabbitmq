@@ -32,7 +32,7 @@ public class ErrorHandler implements ThrowsAdvice {
 	private static final Logger LOG = LoggerFactory.getLogger(ReceiverServiceImpl.class);
 
 	@AfterThrowing(pointcut = "execution(* com.rabbit.receiver.services.impl.ReceiverServiceImpl.receiveString(..))", throwing = "ex")
-	public void sendErrorQueue(final JoinPoint joinPoint, final Exception ex) {
+	public void sendErrorQueue(final JoinPoint joinPoint, final RuntimeException ex) {
 
 		LOG.error(ex.getMessage());
 		LOG.error("Sending to error queue");
@@ -42,7 +42,7 @@ public class ErrorHandler implements ThrowsAdvice {
 		for (final String currentQueue : rabbitListener.queues()) {
 			final String errorQueue = createErrorQueueName(currentQueue);
 			template.convertAndSend(errorQueue, joinPoint.getArgs()[0]);
-			LOG.info("Moved to queue: " + currentQueue);
+			LOG.info("Moved to queue: {}", currentQueue);
 		}
 
 	}

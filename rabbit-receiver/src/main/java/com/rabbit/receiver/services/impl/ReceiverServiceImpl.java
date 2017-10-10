@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StopWatch;
 
 import com.rabbit.receiver.configurations.RabbitConfiguration;
+import com.rabbit.receiver.exceptions.QueueException;
 import com.rabbit.receiver.models.Car;
 
 /**
@@ -27,11 +28,11 @@ public class ReceiverServiceImpl {
 	public void receiveString(final String data) {
 		final StopWatch watch = new StopWatch();
 		watch.start();
-		LOG.info("Received data is: " + data);
+		LOG.info("Received data is: {}", data);
 		i++;
 
 		if (i % 5 == 0) {
-			throw new RuntimeException("Error in " + data);
+			throw new QueueException("Error in " + data);
 		}
 
 		doWork(data);
@@ -50,7 +51,7 @@ public class ReceiverServiceImpl {
 	}
 
 	private void printLog(final String queueName, final Car car) {
-		LOG.info(String.format("%s Queue, car with name %s id: %d", queueName, car.getName(), car.getId()));
+		LOG.info("{} Queue, car with name {} id: {}", queueName, car.getName(), car.getId());
 	}
 
 	private void doWork(final String in) {
@@ -59,8 +60,8 @@ public class ReceiverServiceImpl {
 				try {
 					Thread.sleep(1000);
 				} catch (final InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					LOG.error(e.getMessage());
+					Thread.currentThread().interrupt();
 				}
 			}
 		}
