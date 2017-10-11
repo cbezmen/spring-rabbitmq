@@ -40,7 +40,7 @@ public class SenderServiceImpl {
 		final String message = builder.toString();
 
 		rabbitTemplate.convertAndSend(RabbitConfiguration.RABBIT_QUEUE, message);
-		LOG.info(String.format("%s queue with message : %s", RabbitConfiguration.RABBIT_QUEUE, message));
+		LOG.info("{} queue with message : {} ", RabbitConfiguration.RABBIT_QUEUE, message);
 	}
 
 }

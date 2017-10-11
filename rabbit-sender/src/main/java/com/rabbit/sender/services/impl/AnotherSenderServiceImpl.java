@@ -31,7 +31,7 @@ public class AnotherSenderServiceImpl {
 	public void sendAnother() {
 		rabbitTemplate.convertAndSend(RabbitConfiguration.ANOTHER_RABBIT_QUEUE, new Car(carid, "Car Name"));
 
-		LOG.info(String.format("%s queue with car id %d", RabbitConfiguration.ANOTHER_RABBIT_QUEUE, carid));
+		LOG.info("{} queue with car id {} ", RabbitConfiguration.ANOTHER_RABBIT_QUEUE, carid);
 		carid++;
 	}
 }

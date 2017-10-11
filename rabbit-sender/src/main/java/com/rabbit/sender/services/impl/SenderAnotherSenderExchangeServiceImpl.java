@@ -23,8 +23,7 @@ public class SenderAnotherSenderExchangeServiceImpl {
 		rabbitTemplate.convertAndSend(RabbitConfiguration.RABBIT_THIRD_RABBIT_EXCHANGE, RabbitConfiguration.FANOUT_RK,
 				new Car(exchangeId, "Car Name"));
 
-		LOG.info(String.format("%s exhange with car id %d", RabbitConfiguration.RABBIT_THIRD_RABBIT_EXCHANGE,
-				exchangeId));
+		LOG.info("{} exhange with car id {}", RabbitConfiguration.RABBIT_THIRD_RABBIT_EXCHANGE, exchangeId);
 		exchangeId++;
 	}
 
