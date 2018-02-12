@@ -17,6 +17,7 @@ buildscript {
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 
 
@@ -41,7 +42,7 @@ dependencies {
   compile("org.springframework.boot:spring-boot-starter-undertow")
   compile("org.springframework.boot:spring-boot-starter-amqp")
   compile("org.projectlombok:lombok:1.16.16")
-   compile("org.springframework.boot:spring-boot-starter-aop")
+  compile("org.springframework.boot:spring-boot-starter-aop")
   testCompile("org.springframework.boot:spring-boot-starter-test")
   testCompile("org.testng:testng:6.10")
 }
