@@ -40,7 +40,8 @@ dependencies {
     exclude module: 'spring-boot-starter-tomcat'
   }
   compile("org.springframework.boot:spring-boot-starter-undertow")
-  compile("org.springframework.boot:spring-boot-starter-amqp")
+//  compile("org.springframework.boot:spring-boot-starter-amqp")
+  compile("org.springframework.cloud:spring-cloud-starter-stream-rabbit")
   compile("org.projectlombok:lombok:1.16.16")
   compile("org.springframework.boot:spring-boot-starter-aop")
   testCompile("org.springframework.boot:spring-boot-starter-test")

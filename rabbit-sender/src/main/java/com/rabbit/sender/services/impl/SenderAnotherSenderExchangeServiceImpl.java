@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.rabbit.sender.configurations.RabbitConfiguration;
 import com.rabbit.sender.models.Car;
 
-@Service
+//@Service
 public class SenderAnotherSenderExchangeServiceImpl {
 
 	@Autowired

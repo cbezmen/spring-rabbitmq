@@ -17,7 +17,7 @@ import com.rabbit.receiver.models.Car;
  * @author cbezmen
  *
  */
-@Service
+//@Service
 public class ReceiverServiceImpl {
 
 	private static final Logger LOG = LoggerFactory.getLogger(ReceiverServiceImpl.class);

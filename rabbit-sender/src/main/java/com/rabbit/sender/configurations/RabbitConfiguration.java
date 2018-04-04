@@ -25,7 +25,7 @@ import com.rabbit.sender.enums.QueueSuffixEnumeration;
  * @author cbezmen
  *
  */
-@Configuration
+//@Configuration
 public class RabbitConfiguration {
 
 	public static final String RABBIT_QUEUE = "rabbit.queue";

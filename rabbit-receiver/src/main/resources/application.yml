@@ -1,6 +1,14 @@
 server:
-  port: 8181
+  port: 0
 
+spring:
+  cloud:
+    stream:
+      bindings:
+        customInput:
+          destination: carTopic
+          group: timerGroup
+          content-type: application/json
 
 ---
 spring:

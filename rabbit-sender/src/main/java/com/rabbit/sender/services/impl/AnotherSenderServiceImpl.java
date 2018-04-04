@@ -17,7 +17,7 @@ import com.rabbit.sender.models.Car;
  * @author cbezmen
  *
  */
-@Service
+//@Service
 public class AnotherSenderServiceImpl {
 
 	@Autowired
