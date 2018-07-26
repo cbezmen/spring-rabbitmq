@@ -9,7 +9,11 @@ spring:
           destination: carTopic
           group: timerGroup
           content-type: application/json
-
+      rabbit:
+        bindings:
+          customInput:
+            consumer:
+              auto-bind-dlq: true
 ---
 spring:
   profiles: docker

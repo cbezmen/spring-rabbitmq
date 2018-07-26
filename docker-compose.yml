@@ -8,13 +8,21 @@ services:
         - "5672:5672"
         - "15672:15672"
 
-    rabbit-receiver:
+    rabbit-receiver-1:
       build:
         context: rabbit-receiver
         dockerfile: docker/Dockerfile
       restart: always
       ports:
         - "8181:8181"
+
+    rabbit-receiver-2:
+      build:
+        context: rabbit-receiver
+        dockerfile: docker/Dockerfile
+      restart: always
+      ports:
+        - "8182:8181"
 
     rabbit-sender:
       build:
