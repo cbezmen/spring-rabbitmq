@@ -14,6 +14,17 @@ spring:
           customInput:
             consumer:
               auto-bind-dlq: true
+              exchange-type: fanout
+
+---
+spring:
+  profiles: fanOutProfile
+  cloud:
+    stream:
+      bindings:
+        customInput:
+          group: timerQueue
+
 ---
 spring:
   profiles: docker

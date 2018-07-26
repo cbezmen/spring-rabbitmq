@@ -8,6 +8,13 @@ spring:
         customOutputOne:
           destination: carTopic
           content-type: application/json
+      rabbit:
+        bindings:
+          customOutputOne:
+            producer:
+              exchange-type: fanout
+
+
 
 ---
 spring:
