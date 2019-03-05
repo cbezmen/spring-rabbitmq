@@ -23,7 +23,9 @@ spring:
             consumer:
               auto-bind-dlq: true
               prefetch: 3
-
+          carSender:
+            producer:
+              exchange-type: fanout
 ---
 spring:
   profiles: docker
