@@ -6,9 +6,9 @@ import org.springframework.messaging.SubscribableChannel;
 /**
  * @author canbezmen
  */
-public interface CustomSink {
+public interface ReceiverBindings {
 
-    String INPUT = "customInput";
+    String INPUT = "carReceiver";
 
     @Input(value = INPUT)
     SubscribableChannel customInput();

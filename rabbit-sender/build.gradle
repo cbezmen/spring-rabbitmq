@@ -1,60 +1,59 @@
 buildscript {
-  ext {
-    springBootVersion = '1.5.6.RELEASE'
-    springCloudVersion = 'Dalston.SR1'
-  }
-  repositories {
-    mavenCentral()
-    jcenter()
-    maven {
-      url "https://plugins.gradle.org/m2/"
+    ext {
+        springBootVersion = '2.1.2.RELEASE'
+        springCloudVersion = 'Greenwich.RELEASE'
     }
-  }
-  dependencies {
-    classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-  }
+    repositories {
+        mavenCentral()
+        jcenter()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
 }
 
 apply plugin: 'java'
-apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
 
 
 jar {
-  baseName = 'rabbit-sender'
+    baseName = 'rabbit-sender'
 }
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 repositories {
-  mavenLocal()
-  jcenter()
-  mavenCentral()
+    mavenLocal()
+    jcenter()
+    mavenCentral()
 
 }
 
 dependencies {
-  compile("org.springframework.boot:spring-boot-starter-web") {
-    exclude module: 'spring-boot-starter-tomcat'
-  }
-  compile("org.springframework.boot:spring-boot-starter-undertow")
-//  compile("org.springframework.boot:spring-boot-starter-amqp")
-  compile("org.springframework.cloud:spring-cloud-starter-stream-rabbit")
-  compile("org.projectlombok:lombok:1.16.16")
-  compile("org.springframework.boot:spring-boot-starter-aop")
-  testCompile("org.springframework.boot:spring-boot-starter-test")
-  testCompile("org.testng:testng:6.10")
+    compile("org.springframework.boot:spring-boot-starter-web") {
+        exclude module: 'spring-boot-starter-tomcat'
+    }
+    compile("org.springframework.boot:spring-boot-starter-undertow")
+    compile("org.springframework.cloud:spring-cloud-starter-stream-rabbit")
+    compile("org.projectlombok:lombok:1.16.16")
+    compile("org.springframework.boot:spring-boot-starter-aop")
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+    testCompile("org.testng:testng:6.10")
 }
 
 dependencyManagement {
-  imports {
-    mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
-  }
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
 }
 
 
 test {
-  useTestNG()
+    useTestNG()
 }

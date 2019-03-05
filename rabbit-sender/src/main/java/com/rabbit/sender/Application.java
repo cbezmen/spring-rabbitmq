@@ -3,9 +3,9 @@
  */
 package com.rabbit.sender;
 
-import com.rabbit.sender.messages.SingleSinkSource;
+import com.rabbit.sender.messages.ReceiverBindings;
+import com.rabbit.sender.messages.SenderBindings;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -15,8 +15,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  */
 @SpringBootApplication
 @EnableScheduling
-@EnableAutoConfiguration
-@EnableBinding(value = SingleSinkSource.class)
+@EnableBinding(value = {SenderBindings.class, ReceiverBindings.class})
 public class Application {
 
     public static void main(final String[] args) {

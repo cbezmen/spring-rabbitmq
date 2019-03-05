@@ -1,16 +1,13 @@
-/**
- *
- */
-package com.rabbit.receiver.services.impl;
+package com.rabbit.sender.services.impl;
 
-import com.rabbit.receiver.messages.ReceiverBindings;
-import com.rabbit.receiver.models.Car;
+import com.rabbit.sender.messages.ReceiverBindings;
+import com.rabbit.sender.models.Car;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.stereotype.Service;
 
 /**
- * @author cbezmen
+ * @author canbezmen
  */
 @Service
 @Slf4j
@@ -22,6 +19,7 @@ public class ReceiverServiceImpl {
 //        if (car.getId() % 5 == 0) {
 //            throw new Exception("Exception for dlq");
 //        }
+        Thread.sleep(5000);
         log.info("Received: {}", car.toString());
 
     }

@@ -5,14 +5,15 @@ spring:
   cloud:
     stream:
       bindings:
-        customInput:
-          destination: carTopic
+        carReceiver:
+          destination: carQueue
           group: timerGroup
           content-type: application/json
       rabbit:
         bindings:
-          customInput:
+          carReceiver:
             consumer:
+              prefetch: 3
               auto-bind-dlq: true
 ---
 spring:

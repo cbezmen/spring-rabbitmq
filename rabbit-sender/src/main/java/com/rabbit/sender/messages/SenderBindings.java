@@ -6,9 +6,9 @@ import org.springframework.messaging.MessageChannel;
 /**
  * @author canbezmen
  */
-public interface SingleSinkSource {
+public interface SenderBindings {
 
-    String OUTPUT_ONE = "customOutputOne";
+    String OUTPUT_ONE = "carSender";
 
     @Output(value = OUTPUT_ONE)
     MessageChannel myOutputOne();

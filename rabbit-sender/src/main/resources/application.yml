@@ -5,13 +5,28 @@ spring:
   cloud:
     stream:
       bindings:
-        customOutputOne:
-          destination: carTopic
+        carReceiver:
+          destination: carQueue
+          group: timerGroup
           content-type: application/json
+          consumer:
+            concurrency: 3
+
+        carSender:
+          destination: carQueue
+          content-type: application/json
+
+
+      rabbit:
+        bindings:
+          carReceiver:
+            consumer:
+              auto-bind-dlq: true
+              prefetch: 3
 
 ---
 spring:
-  profiles: docker 
+  profiles: docker
   rabbitmq:
     host: rabbitmq
     port: 5672

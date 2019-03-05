@@ -3,7 +3,7 @@
  */
 package com.rabbit.sender.services.impl;
 
-import com.rabbit.sender.messages.SingleSinkSource;
+import com.rabbit.sender.messages.SenderBindings;
 import com.rabbit.sender.models.Car;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class SenderServiceImpl {
     AtomicInteger counter = new AtomicInteger();
 
     @Autowired
-    private SingleSinkSource singleSinkSource;
+    private SenderBindings senderBindings;
 
     @Scheduled(fixedDelay = 1000, initialDelay = 500)
     public void sendCar() {
@@ -32,7 +32,7 @@ public class SenderServiceImpl {
         Car car = new Car(id, "car-" + id);
         log.info("sending {}", car.toString());
 
-        singleSinkSource.myOutputOne().send(MessageBuilder.withPayload(car).build());
+        senderBindings.myOutputOne().send(MessageBuilder.withPayload(car).build());
 
     }
 
