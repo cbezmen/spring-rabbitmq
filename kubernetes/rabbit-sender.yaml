@@ -5,25 +5,31 @@ metadata:
   labels:
     app: rabbit-sender
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
     - port: 8180
   selector:
     app: rabbit-sender
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: rabbit-sender
+  labels:
+    app: rabbit-sender
 spec:
   replicas: 1
   template:
     metadata:
+      name: rabbit-sender
       labels:
         app: rabbit-sender
     spec:
       containers:
-      - name: rabbit-sender
-        image: rabbit-sender:v1
-        ports:
-        - containerPort: 8180
+        - name: rabbit-sender
+          image: rabbit-sender:v1
+          ports:
+            - containerPort: 8180
+  selector:
+    matchLabels:
+      app: rabbit-sender

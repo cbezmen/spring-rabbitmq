@@ -1,4 +1,0 @@
-rootProject.name = 'spring-rabbitmq'
-
-include 'rabbit-sender'
-include 'rabbit-receiver'

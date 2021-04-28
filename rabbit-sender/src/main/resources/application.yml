@@ -1,32 +1,18 @@
 server:
-  port: 8180
+  port: 0
 
 spring:
   cloud:
     stream:
       bindings:
-        carReceiver:
-          destination: carQueue
-          group: timerGroup
-          content-type: application/json
-          consumer:
-            concurrency: 3
-
         carSender:
           destination: carQueue
-          content-type: application/json
-
-
-      rabbit:
-        bindings:
-          carReceiver:
-            consumer:
-              auto-bind-dlq: true
-              prefetch: 3
 
 ---
 spring:
-  profiles: docker
+  config:
+    activate:
+      on-profile: docker
   rabbitmq:
     host: rabbitmq
     port: 5672

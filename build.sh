@@ -17,32 +17,32 @@ if [[ $@ == *"compile"* ]]
 then
   for project in ${projectArray[*]}; do
     note "Compiling $project..."
-    cd $project; gradle clean build -x test; docker build -f docker/Dockerfile -t $project:$projectVersion .; cd -
+    cd $project; mvn clean install; docker build -f docker/Dockerfile -t $project:$projectVersion .; cd -
   done
 fi
 
 if [[ $@ == *"start-d9"* ]]
 then
   note "Starting docker compose"
-  docker-compose up --build -d
+  docker compose up --build -d
 fi
 
 if [[ $@ == *"stop-d9"* ]]
 then
   note "Stopping docker compose"
-  docker-compose down
+  docker compose down
 fi
 
 if [[ $@ == *"start-k8"* ]]
 then
-  eval $(minikube docker-env)
+#  eval $(minikube docker-env)
   note "Starting building yaml files..."
   note "Starting Rabbitmq Server..."
-  kubectl create -f kubernetes/rabbitmq.yaml; sleep 3
+  kubectl apply -f kubernetes/rabbitmq.yaml; sleep 3
 
   for project in ${projectArray[*]}; do
     note "Starting $project..."
-    kubectl create -f kubernetes/$project.yaml; sleep 5
+    kubectl apply -f kubernetes/$project.yaml; sleep 5
   done
 fi
 

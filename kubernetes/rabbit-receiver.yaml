@@ -5,16 +5,18 @@ metadata:
   labels:
     app: rabbit-receiver
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
     - port: 8181
   selector:
     app: rabbit-receiver
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: rabbit-receiver
+  labels:
+    app: rabbit-receiver
 spec:
   replicas: 1
   template:
@@ -23,7 +25,10 @@ spec:
         app: rabbit-receiver
     spec:
       containers:
-      - name: rabbit-receiver
-        image: rabbit-receiver:v1
-        ports:
-        - containerPort: 8181
+        - name: rabbit-receiver
+          image: rabbit-receiver:v1
+          ports:
+            - containerPort: 8181
+  selector:
+    matchLabels:
+      app: rabbit-receiver

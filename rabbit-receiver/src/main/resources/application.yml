@@ -4,20 +4,23 @@ server:
 spring:
   cloud:
     stream:
+      function:
+        definition: carReceiver
       bindings:
-        carReceiver:
+        carReceiver-in-0:
           destination: carQueue
-          group: timerGroup
+          group: my-group
           content-type: application/json
       rabbit:
         bindings:
-          carReceiver:
+          carReceiver-in-0:
             consumer:
-              prefetch: 3
               auto-bind-dlq: true
 ---
 spring:
-  profiles: docker
+  config:
+    activate:
+      on-profile: docker
   rabbitmq:
     host: rabbitmq
     port: 5672
